@@ -34,6 +34,8 @@ target 'AwesomeProject' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'AwesomeProjectTests' do
     inherit! :search_paths
     # Pods for testing
@@ -42,12 +44,12 @@ target 'AwesomeProject' do
   use_native_modules!
 end
 
-target 'AwesomeProject-tvOS' do
+# target 'AwesomeProject-tvOS' do
   # Pods for AwesomeProject-tvOS
 
-  target 'AwesomeProject-tvOSTests' do
-    inherit! :search_paths
+  # target 'AwesomeProject-tvOSTests' do
+    # inherit! :search_paths
     # Pods for testing
-  end
+  # end
 
-end
+# end

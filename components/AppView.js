@@ -8,6 +8,8 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+// eslint-disable-next-line no-unused-vars
+import Reactotron from 'reactotron-react-native';
 
 import {
   Header,
@@ -25,9 +27,16 @@ const AppView = () => {
   const dispatch = useDispatch();
   const counter = useSelector(counterSelector);
 
-  const handleIncrementPressed = () => dispatch(requestIncrementCounter());
-  const handleDecrementPressed = () => dispatch(requestDecrementCounter());
+  const handleIncrementPressed = () => {
+    console.tron.log('handleIncrementPressed', { one: 1 });
+    dispatch(requestIncrementCounter());
+  };
+  const handleDecrementPressed = () => {
+    console.tron.log('handleDecrementPressed', { negativeOne: -1 });
+    dispatch(requestDecrementCounter());
+  };
 
+  console.tron.logImportant('hello awesome project');
   return (
     <>
       <StatusBar barStyle="dark-content" />
