@@ -28,15 +28,21 @@ const AppView = () => {
   const counter = useSelector(counterSelector);
 
   const handleIncrementPressed = () => {
-    console.tron.log('handleIncrementPressed', { one: 1 });
+    if (__DEV__){
+      console.tron.log('handleIncrementPressed', { one: 1 });
+    }
     dispatch(requestIncrementCounter());
   };
   const handleDecrementPressed = () => {
-    console.tron.log('handleDecrementPressed', { negativeOne: -1 });
+    if (__DEV__) {
+      console.tron.log('handleDecrementPressed', { negativeOne: -1 });
+    }
     dispatch(requestDecrementCounter());
   };
 
-  console.tron.logImportant('hello awesome project');
+  if (__DEV__) {
+    console.tron.logImportant('hello awesome project');
+  }
   return (
     <>
       <StatusBar barStyle="dark-content" />

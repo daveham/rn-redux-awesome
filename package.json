@@ -12,9 +12,16 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios --simulator=\"iPhone 11\"",
+    "ios:release": "react-native run-ios --simulator=\"iPhone 11\" --configuration Release",
+    "ios:device": "react-native run-ios --device",
+    "ios:device:release": "react-native run-ios --device --configuration Release",
+    "ios:dave:debug": "react-native run-ios --udid put-your-phone-id-here",
+    "ios:dave:release": "react-native run-ios --udid put-your-phone-id-here --configuration Release",
+    "ios:x": "FORCE_BUNDLING=true react-native run-ios --no-packager --simulator=\"iPhone 11\"",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "clear-rn-cache": "npm start -- --reset-cache"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.2",
