@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 
-import { actions } from '../actions';
-const { incrementCounter, decrementCounter } = actions;
+import { incrementCounter, decrementCounter } from '../actions';
 
 const counter = handleActions(
   {

@@ -8,8 +8,6 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-// eslint-disable-next-line no-unused-vars
-import Reactotron from 'reactotron-react-native';
 
 import {
   Header,
@@ -19,16 +17,19 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { actions } from '../actions';
+import {
+  requestIncrementCounter,
+  requestDecrementCounter,
+  requestGithubData,
+} from '../actions';
 import { counterSelector } from '../selectors';
 
-const { requestIncrementCounter, requestDecrementCounter } = actions;
 const AppView = () => {
   const dispatch = useDispatch();
   const counter = useSelector(counterSelector);
 
   const handleIncrementPressed = () => {
-    if (__DEV__){
+    if (__DEV__) {
       console.tron.log('handleIncrementPressed', { one: 1 });
     }
     dispatch(requestIncrementCounter());
@@ -38,6 +39,12 @@ const AppView = () => {
       console.tron.log('handleDecrementPressed', { negativeOne: -1 });
     }
     dispatch(requestDecrementCounter());
+  };
+  const handleGithubPressed = () => {
+    if (__DEV__) {
+      console.tron.log('handleGithubPressed', { one: 1 });
+    }
+    dispatch(requestGithubData());
   };
 
   if (__DEV__) {
@@ -68,6 +75,9 @@ const AppView = () => {
                 onPress={handleDecrementPressed}
                 style={styles.sectionContent}>
                 Decrement
+              </Text>
+              <Text onPress={handleGithubPressed} style={styles.sectionContent}>
+                GitHub
               </Text>
             </View>
             <View style={styles.sectionContainer}>

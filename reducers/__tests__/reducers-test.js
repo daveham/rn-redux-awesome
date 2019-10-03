@@ -1,6 +1,5 @@
 import reducer from '../index';
-import { actions } from '../../actions';
-const { incrementCounter, decrementCounter } = actions;
+import { incrementCounter, decrementCounter } from '../../actions';
 
 describe('reducers', () => {
   it('initializes', () => {

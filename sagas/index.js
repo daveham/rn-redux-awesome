@@ -1,12 +1,21 @@
-import { all, call, delay, put, take, takeLatest } from 'redux-saga/effects';
+import {
+  all,
+  call,
+  delay,
+  put,
+  take,
+  takeEvery,
+  takeLatest,
+} from 'redux-saga/effects';
+import axios from 'axios';
 
-import { actions } from '../actions';
-const {
+import {
   incrementCounter,
   decrementCounter,
   requestIncrementCounter,
   requestDecrementCounter,
-} = actions;
+  requestGithubData,
+} from '../actions';
 
 const delayP = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -20,10 +29,24 @@ function* delayedDecrementSaga() {
   yield put(decrementCounter());
 }
 
+function* apiCallSaga() {
+  yield call(() => {
+    return axios
+      .get('https://api.github.com/users/phantomjs')
+      .then(response => {
+        console.log('axios', { data: response.data });
+      })
+      .catch(error => {
+        console.log('axios', { error });
+      });
+  });
+}
+
 function* counterSagas() {
   yield all([
     takeLatest(requestIncrementCounter, delayedIncrementSaga),
     takeLatest(requestDecrementCounter, delayedDecrementSaga),
+    takeEvery(requestGithubData, apiCallSaga),
   ]);
 }
 
