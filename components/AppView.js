@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Button } from 'react-native-paper';
 import {
   SafeAreaView,
   StyleSheet,
@@ -29,27 +30,15 @@ const AppView = () => {
   const counter = useSelector(counterSelector);
 
   const handleIncrementPressed = () => {
-    if (__DEV__) {
-      console.tron.log('handleIncrementPressed', { one: 1 });
-    }
     dispatch(requestIncrementCounter());
   };
   const handleDecrementPressed = () => {
-    if (__DEV__) {
-      console.tron.log('handleDecrementPressed', { negativeOne: -1 });
-    }
     dispatch(requestDecrementCounter());
   };
   const handleGithubPressed = () => {
-    if (__DEV__) {
-      console.tron.log('handleGithubPressed', { one: 1 });
-    }
     dispatch(requestGithubData());
   };
 
-  if (__DEV__) {
-    console.tron.logImportant('hello awesome project');
-  }
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -66,19 +55,15 @@ const AppView = () => {
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Counter: {counter}</Text>
-              <Text
-                onPress={handleIncrementPressed}
-                style={styles.sectionContent}>
-                Increment
-              </Text>
-              <Text
-                onPress={handleDecrementPressed}
-                style={styles.sectionContent}>
-                Decrement
-              </Text>
-              <Text onPress={handleGithubPressed} style={styles.sectionContent}>
-                GitHub
-              </Text>
+              <Button mode="contained" onPress={handleIncrementPressed}>
+                <Text style={styles.sectionContent}>Increment</Text>
+              </Button>
+              <Button mode="contained" onPress={handleDecrementPressed}>
+                <Text style={styles.sectionContent}>Decrement</Text>
+              </Button>
+              <Button mode="contained" onPress={handleGithubPressed}>
+                <Text style={styles.sectionContent}>GitHub</Text>
+              </Button>
             </View>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>See Your Changes</Text>

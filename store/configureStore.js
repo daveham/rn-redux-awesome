@@ -1,37 +1,45 @@
-import { createStore, compose, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import Reactotron from 'reactotron-react-native';
-import ReactotronConfig from '../ReactotronConfig';
 
 import rootReducer from '../reducers';
 import sagas from '../sagas';
 
-let sagaMiddleware;
-if (__DEV__) {
-  const sagaMonitor = Reactotron.createSagaMonitor();
-  sagaMiddleware = createSagaMiddleware({ sagaMonitor });
-} else {
-  sagaMiddleware = createSagaMiddleware();
-}
+const composeEnhancers =
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        name: 'AwesomeApp',
+        shouldCatchErrors: true,
+        trace: true,
+      })
+    : compose;
 
-const getMiddleware = () => {
-  return applyMiddleware(sagaMiddleware);
+const sagaMonitor = {
+  rootSagaStarted: desc => {
+    // console.log('Root saga started', {
+    //   effectId: desc.effectId,
+    //   name: desc.saga.name || 'anonymous',
+    //   args: desc.args,
+    // });
+  },
+  effectTriggered: desc => {
+    // console.log('Effect triggered', desc);
+  },
+  effectResolved: (effectId, result) => {
+    // console.log('Effect resolved', { effectId, result });
+  },
+  effectRejected: (effectId, error) => {
+    // console.log('Effect rejected', { effectId, error });
+  },
+  effectCancelled: effectId => {
+    // console.log('Effect canceled', { effectId });
+  },
+  actionDispatched: () => {},
 };
 
-let store;
-if (__DEV__) {
-  store = createStore(
-    rootReducer,
-    compose(
-      getMiddleware(),
-      ReactotronConfig.createEnhancer(),
-    ),
-  );
-} else {
-  store = createStore(rootReducer, compose(getMiddleware()));
-}
-const configureStore = () => store;
+const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
+const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
+const store = createStore(rootReducer, enhancer);
 
 sagaMiddleware.run(sagas);
 
-export default configureStore;
+export default () => store;
